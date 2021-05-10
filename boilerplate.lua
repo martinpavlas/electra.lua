@@ -11,25 +11,31 @@ function onButtonDown (buttonId)
     print ("button " .. buttonId .. " pressed")
 end
 
+
 function onButtonUp (buttonId)
     print ("button " .. buttonId .. " released")
 end
+
 
 function onButtonLongPress (buttonId)
     print ("button " .. buttonId .. " pressed for longer time")
 end
 
+
 function onPotMove (potId, relativeChange)
     print ("pot " .. potId .. " moved by " .. relativeChange)
 end
+
 
 function onPotTouchDown (potId)
     print ("pot " .. potId .. " touched")
 end
 
+
 function onPotTouchUp (potId)
     print ("pot " .. potId .. " released")
 end
+
 
 function onTouchDown (touchEvent)
     print ("touchDown x=" .. touchEvent.x .. " y=" .. touchEvent.y)
@@ -39,6 +45,7 @@ function onTouchDown (touchEvent)
     end
 end
 
+
 function onTouchHold (touchEvent)
   print ("touchHold x=" .. touchEvent.x .. " y=" .. touchEvent.y)
 
@@ -46,6 +53,7 @@ function onTouchHold (touchEvent)
     print ("ComponentId=" .. touchEvent.componentId)
     end
 end
+
 
 function onTouchUp (touchEvent)
   print ("touchUp x=" .. touchEvent.x .. " y=" .. touchEvent.y)
@@ -55,6 +63,7 @@ function onTouchUp (touchEvent)
     end
 end
 
+
 function onTouchLongHold (touchEvent)
   print ("touchLongHold x=" .. touchEvent.x .. " y=" .. touchEvent.y)
 
@@ -62,6 +71,7 @@ function onTouchLongHold (touchEvent)
     print ("ComponentId=" .. touchEvent.componentId)
     end
 end
+
 
 function onTouchClick (touchEvent)
   print ("touchClick x=" .. touchEvent.x .. " y=" .. touchEvent.y)
@@ -71,6 +81,7 @@ function onTouchClick (touchEvent)
   end
 end
 
+
 function onTouchDoubleClick (touchEvent)
   print ("touchDoubleClick x=" .. touchEvent.x .. " y=" .. touchEvent.y)
 
@@ -79,29 +90,16 @@ function onTouchDoubleClick (touchEvent)
   end
 end
 
-function onMidiMessageReceived (midiInput, midiMessage)
-    print ("midi message received: interface=" .. midiInput.interface ..
-           " channel=" .. midiMessage.channel .. " type=" .. midiMessage.type ..
-           " data1=" .. midiMessage.data1 .. " data2=" .. midiMessage.data2)
-end
 
-
-function onCtrlSyseReceived ()
-  print ("onCtrlSyseReceived")
-end
-
-function onCtrlMessageReceived ()
-  print ("onCtrlMessageReceived")
-end
-
-function onCtrlFileReceived ()
-  print ("onCtrlFileReceived")
-end
-
-function onCtrlSyseReceived ()
-  print ("onCtrlSyseReceived")
-end
-
-function runUserTask ()
-  print ("runUserTask");
+function midi.onMessage (midiInput, midiMessage)
+    if midiMessage.type == SYSEX then
+        print ("sysex message received: interface=" .. midiInput.interface ..
+               " data=[" .. table.concat (midiMessage.data,", ") .. "]")
+    else
+        print ("midi message received: interface=" .. midiInput.interface ..
+               " channel=" .. midiMessage.channel ..
+               " type=" .. midiMessage.type ..
+               " data1=" .. midiMessage.data1 ..
+               " data2=" .. midiMessage.data2)
+    end
 end

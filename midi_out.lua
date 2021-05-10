@@ -92,7 +92,7 @@ midi.sendContinue (PORT_1)
 
 -- Active sensing
 -- param portId a port identifier (PORT_1, PORT_2, PORT_CTRL)
-midi.sendActive (PORT_1)
+midi.sendActiveSensing (PORT_1)
 
 -- System reset
 -- param portId a port identifier (PORT_1, PORT_2, PORT_CTRL)
